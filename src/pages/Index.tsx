@@ -5,6 +5,7 @@ import ScanForm from "@/components/ScanForm";
 import ScanProgress from "@/components/ScanProgress";
 import StatsBar from "@/components/StatsBar";
 import ResultsTable from "@/components/ResultsTable";
+import PortMap from "@/components/PortMap";
 import { ScanResult, parsePorts, simulateScan, TOP_PORTS_100 } from "@/lib/scanner-data";
 import { toast } from "sonner";
 
