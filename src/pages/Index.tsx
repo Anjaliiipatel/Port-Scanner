@@ -105,12 +105,13 @@ const Index = () => {
           <>
             <StatsBar results={results} scanTime={scanTime} />
             <ResultsTable results={results} filter={filter} setFilter={setFilter} />
+            <PortMap results={results} />
           </>
         )}
-        {/* Live results during scan */}
         {isScanning && results.length > 0 && (
           <div className="mt-6">
             <ResultsTable results={results} filter={filter} setFilter={setFilter} />
+            <PortMap results={results} />
           </div>
         )}
       </div>
