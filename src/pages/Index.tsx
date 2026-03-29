@@ -49,6 +49,7 @@ const Index = () => {
     setScanTime(null);
     setFilter("all");
     setHasScanned(true);
+    setScanTrigger((c) => c + 1);
     stopRef.current = false;
     startTimeRef.current = Date.now();
 
