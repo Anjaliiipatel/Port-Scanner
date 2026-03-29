@@ -6,6 +6,7 @@ import ScanProgress from "@/components/ScanProgress";
 import StatsBar from "@/components/StatsBar";
 import ResultsTable from "@/components/ResultsTable";
 import PortMap from "@/components/PortMap";
+import WorldMap from "@/components/WorldMap";
 import { ScanResult, parsePorts, simulateScan, TOP_PORTS_100 } from "@/lib/scanner-data";
 import { toast } from "sonner";
 
@@ -106,6 +107,7 @@ const Index = () => {
             <StatsBar results={results} scanTime={scanTime} />
             <ResultsTable results={results} filter={filter} setFilter={setFilter} />
             <PortMap results={results} />
+            <WorldMap target={target} visible={true} />
           </>
         )}
         {isScanning && results.length > 0 && (
