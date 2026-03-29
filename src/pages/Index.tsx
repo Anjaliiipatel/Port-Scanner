@@ -22,6 +22,7 @@ const Index = () => {
   const [scanTime, setScanTime] = useState<number | null>(null);
   const [filter, setFilter] = useState<"all" | "open" | "closed" | "filtered">("all");
   const [hasScanned, setHasScanned] = useState(false);
+  const [scanTrigger, setScanTrigger] = useState(0);
   const stopRef = useRef(false);
   const startTimeRef = useRef(0);
 
