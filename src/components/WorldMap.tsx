@@ -40,13 +40,21 @@ const WorldMap = ({ target, visible }: WorldMapProps) => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`http://ip-api.com/json/${target.trim()}`);
+        const res = await fetch(`https://ipapi.co/${target.trim()}/json/`);
         const data = await res.json();
-        if (data.status === "fail") {
-          setError(data.message || "Could not geolocate target");
+        if (data.error) {
+          setError(data.reason || "Could not geolocate target");
           setGeo(null);
         } else {
-          setGeo(data);
+          setGeo({
+            lat: data.latitude,
+            lon: data.longitude,
+            city: data.city || "Unknown",
+            country: data.country_name || "Unknown",
+            isp: data.org || "",
+            org: data.org || "",
+            query: data.ip,
+          });
         }
       } catch {
         setError("Geolocation lookup failed");
