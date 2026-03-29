@@ -66,7 +66,7 @@ const WorldMap = ({ target, visible, scanTrigger }: WorldMapProps) => {
     };
 
     lookup();
-  }, [target, visible]);
+  }, [scanTrigger]);
 
   if (!visible) return null;
 
