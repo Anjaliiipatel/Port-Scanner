@@ -23,15 +23,16 @@ interface GeoData {
 interface WorldMapProps {
   target: string;
   visible: boolean;
+  scanTrigger: number; // increments each time a scan starts
 }
 
-const WorldMap = ({ target, visible }: WorldMapProps) => {
+const WorldMap = ({ target, visible, scanTrigger }: WorldMapProps) => {
   const [geo, setGeo] = useState<GeoData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!visible || !target.trim()) {
+    if (!visible || !target.trim() || scanTrigger === 0) {
       setGeo(null);
       return;
     }
@@ -40,13 +41,21 @@ const WorldMap = ({ target, visible }: WorldMapProps) => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`http://ip-api.com/json/${target.trim()}`);
+        const res = await fetch(`https://ipapi.co/${target.trim()}/json/`);
         const data = await res.json();
-        if (data.status === "fail") {
-          setError(data.message || "Could not geolocate target");
+        if (data.error) {
+          setError(data.reason || "Could not geolocate target");
           setGeo(null);
         } else {
-          setGeo(data);
+          setGeo({
+            lat: data.latitude,
+            lon: data.longitude,
+            city: data.city || "Unknown",
+            country: data.country_name || "Unknown",
+            isp: data.org || "",
+            org: data.org || "",
+            query: data.ip,
+          });
         }
       } catch {
         setError("Geolocation lookup failed");
@@ -57,7 +66,7 @@ const WorldMap = ({ target, visible }: WorldMapProps) => {
     };
 
     lookup();
-  }, [target, visible]);
+  }, [scanTrigger]);
 
   if (!visible) return null;
 

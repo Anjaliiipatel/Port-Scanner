@@ -22,6 +22,7 @@ const Index = () => {
   const [scanTime, setScanTime] = useState<number | null>(null);
   const [filter, setFilter] = useState<"all" | "open" | "closed" | "filtered">("all");
   const [hasScanned, setHasScanned] = useState(false);
+  const [scanTrigger, setScanTrigger] = useState(0);
   const stopRef = useRef(false);
   const startTimeRef = useRef(0);
 
@@ -48,6 +49,7 @@ const Index = () => {
     setScanTime(null);
     setFilter("all");
     setHasScanned(true);
+    setScanTrigger((c) => c + 1);
     stopRef.current = false;
     startTimeRef.current = Date.now();
 
@@ -107,7 +109,7 @@ const Index = () => {
             <StatsBar results={results} scanTime={scanTime} />
             <ResultsTable results={results} filter={filter} setFilter={setFilter} />
             <PortMap results={results} />
-            <WorldMap target={target} visible={true} />
+            <WorldMap target={target} visible={true} scanTrigger={scanTrigger} />
           </>
         )}
         {isScanning && results.length > 0 && (
