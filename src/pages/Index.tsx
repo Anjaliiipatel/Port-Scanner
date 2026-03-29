@@ -107,6 +107,7 @@ const Index = () => {
             <StatsBar results={results} scanTime={scanTime} />
             <ResultsTable results={results} filter={filter} setFilter={setFilter} />
             <PortMap results={results} />
+            <WorldMap target={target} visible={true} />
           </>
         )}
         {isScanning && results.length > 0 && (
