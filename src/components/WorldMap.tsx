@@ -23,15 +23,16 @@ interface GeoData {
 interface WorldMapProps {
   target: string;
   visible: boolean;
+  scanTrigger: number; // increments each time a scan starts
 }
 
-const WorldMap = ({ target, visible }: WorldMapProps) => {
+const WorldMap = ({ target, visible, scanTrigger }: WorldMapProps) => {
   const [geo, setGeo] = useState<GeoData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!visible || !target.trim()) {
+    if (!visible || !target.trim() || scanTrigger === 0) {
       setGeo(null);
       return;
     }
